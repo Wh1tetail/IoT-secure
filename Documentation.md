@@ -88,4 +88,4 @@ IOT-security/
 - Интеграции с системой блокировки по MAC.
 
 Проект бы создан Кирилл Белохвостов SW-46b.
-Так же можно посмотреть на github: https://github.com/Wh1tetail?tab=overview&from=2025-06-01&to=2025-06-12
+Так же можно посмотреть на github: [https://github.com/Wh1tetail?tab=overview&from=2025-06-01&to=2025-06-12](https://github.com/Wh1tetail/IoT-secure)
