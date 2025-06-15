@@ -1,0 +1,81 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IoT Device Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            margin: auto;
+            width: 80%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .safe {
+            color: green;
+            font-weight: bold;
+        }
+        .suspicious {
+            color: red;
+            font-weight: bold;
+        }
+        .scan-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #2d89ef;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .scan-btn:hover {
+            background-color: #1b61c0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Устройства в сети «Умного дома»</h1>
+    <button class="scan-btn" onclick="scanNow()">Сканировать сеть</button>
+    <table>
+        <tr>
+            <th>IP</th>
+            <th>MAC-адрес</th>
+            <th>Название</th>
+            <th>Статус</th>
+        </tr>
+        {% for device in devices %}
+        <tr>
+            <td>{{ device.ip }}</td>
+            <td>{{ device.mac }}</td>
+            <td>{{ device.name }}</td>
+            <td class="{{ device.status }}">{{ device.status | capitalize }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        function scanNow() {
+            fetch('/scan')
+                .then(() => location.reload());
+        }
+    </script>
+</body>
+</html>
