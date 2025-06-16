@@ -53,7 +53,10 @@
 </head>
 <body>
     <h1>Устройства в сети «Умного дома»</h1>
-    <button class="scan-btn" onclick="scanNow()">Сканировать сеть</button>
+    <button class="scan-btn" onclick="scanNow()" id="scanBtn">Сканировать сеть</button>
+    <div id="loader" style="display:none; text-align:center; margin:10px;">
+        <span>Сканирование...</span>
+    </div>
     <table>
         <tr>
             <th>IP</th>
@@ -62,17 +65,24 @@
             <th>Статус</th>
         </tr>
         {% for device in devices %}
-        <tr>
+        <tr {% if device.status == 'suspicious' %}style="background:#ffeaea;"{% endif %}>
             <td>{{ device.ip }}</td>
             <td>{{ device.mac }}</td>
             <td>{{ device.name }}</td>
-            <td class="{{ device.status }}">{{ device.status | capitalize }}</td>
+            <td class="{{ device.status }}">
+                {% if device.status == 'suspicious' %}
+                    &#9888; 
+                {% endif %}
+                {{ device.status | capitalize }}
+            </td>
         </tr>
         {% endfor %}
     </table>
 
     <script>
         function scanNow() {
+            document.getElementById('scanBtn').disabled = true;
+            document.getElementById('loader').style.display = 'block';
             fetch('/scan')
                 .then(() => location.reload());
         }
